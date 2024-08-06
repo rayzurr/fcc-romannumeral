@@ -1,4 +1,4 @@
-const inputBox = document.getElementById("number") // .value converts only into STRING.
+const inputBox = document.getElementById("number")
 const convertBtn = document.getElementById("convert-btn")
 const resultMsg = document.getElementById("output")
 
@@ -19,31 +19,37 @@ const romanNumerals = {
     I: 1
 };
 
-console.log(roman)
-
-convertBtn.addEventListener("click", (num)=>{
-    let result = '';
-    let num = parseInT(inputBox.value); // parseInt converts string to number
-
-    // the for loop with itierate over the key of the roman numerals
-    for (let   
- key in romanNumerals) {
+convertBtn.addEventListener("click", romanNumeralConverter)
 
 
-// this check itierate over object and stop when value is greater or equal to the 116
-// a while loop is great for this task because it checks for the first true condition
-        while (num >= romanNumerals[key]) {
-            // will add the key 'C' to the 'result' (which is a string variable)
-            result += key;
-            // originally the value was 116, now it will subtract 100 (the value of C 100) and the continue for the for loop
-            num -= romanNumerals[key];
-        }
+function romanNumeralConverter(){ //will convert input number to roman numeral letters
+
+    let inputValue = parseInt(inputBox.value);
+let result = '';
+
+    if (isNaN(inputValue)){
+        resultMsg.innerText = "Please enter a valid number"
     }
 
-    console.log(result);
-})
+    if (parseInt(inputValue) < 1){
+        resultMsg.innerText = "Please enter a number greater than or equal to 1"
+    }
+
+    if (parseInt(inputValue) >= 3999){
+        resultMsg.innerText = "Please enter a number less than or equal to 3999"
+    }
 
 
+if (parseInt(inputValue) >= 1 && parseInt(inputValue) <= 3999) {
+    for (let key in romanNumerals){
+            while ( parseInt(inputValue) >= romanNumerals[key]){
+                console.log(romanNumerals[key])
+                result += key
+                inputValue -= romanNumerals[key];
+            }
+        }
 
+        resultMsg.innerText = result;
+}
 
-
+}
